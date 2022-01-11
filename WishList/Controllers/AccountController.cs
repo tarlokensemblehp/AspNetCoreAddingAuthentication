@@ -38,11 +38,9 @@ namespace WishList.Controllers
         public IActionResult Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
-            {
                 return View(model);
-            }
 
-            var result = _userManager.CreateAsync(new ApplicationUser
+            var result = _userManager.CreateAsync(new ApplicationUser()
             {
                 UserName = model.Email,
                 Email = model.Email
@@ -51,9 +49,9 @@ namespace WishList.Controllers
 
             if (!result.Succeeded)
             {
-                foreach (var item in result.Errors)
+                foreach (var error in result.Errors)
                 {
-                    ModelState.AddModelError("Password", item.Description);
+                    ModelState.AddModelError("Password", error.Description);
                 }
                 return View(model);
             }
