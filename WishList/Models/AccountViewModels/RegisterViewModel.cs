@@ -8,18 +8,18 @@ namespace WishList.Models.AccountViewModels
 {
     public class RegisterViewModel
     {
-        [Required(ErrorMessage = "Email is required.")]
+        [Required]
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Password is required.")]
-        [StringLength(100, MinimumLength = 8, ErrorMessage = "Password should have minimum 8 and max 100 characters.")]
+        [Required]
+        [StringLength(100, MinimumLength = 8)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "Confirmation Password is required.")]
+        [Required]
         [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "Password and Confirmation Password must match.")]
+        [Compare("Password")]
         public string ConfirmPassword { get; set; }
 
     }
