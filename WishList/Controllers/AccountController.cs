@@ -39,26 +39,26 @@ namespace WishList.Controllers
         {
             if (ModelState.IsValid)
             {
-                return View("Register", model);
+                return View(model);
             }
 
             var result = _userManager.CreateAsync(new ApplicationUser
             {
                 UserName = model.Email,
-                Email = model.Email,
-                PasswordHash = model.Password,
-            });
+                Email = model.Email
+            },
+                model.Password).Result;
 
-            if(!result.Result.Succeeded)
+            if (!result.Succeeded)
             {
-                foreach (var item in result.Result.Errors)
+                foreach (var item in result.Errors)
                 {
-                    ModelState.AddModelError(item.Code, item.Description);
+                    ModelState.AddModelError("Password", item.Description);
                 }
-                return View("Register", model);
+                return View(model);
             }
 
-            return RedirectToAction("home");
+            return RedirectToAction("Index", "Home");
         }
     }
 }
